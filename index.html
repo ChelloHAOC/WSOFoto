@@ -5,11 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080808">
-  <meta name="description" content="WS Fotografia — fotografia esportiva, momentos inesquecíveis e histórias dentro de campo.">
-  <title>WS Fotografia | O jogo por outro olhar</title>
 
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://images.unsplash.com">
+  <title>WS Fotografia | O Jogo. Outro Olhar.</title>
+  <meta name="description" content="WS Fotografia — fotografia esportiva, bastidores e emoção dentro e fora de campo.">
+  <meta property="og:title" content="WS Fotografia">
+  <meta property="og:description" content="O jogo. Outro olhar.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23080808'/%3E%3Ctext x='32' y='41' font-family='Arial,sans-serif' font-size='22' font-weight='bold' text-anchor='middle' fill='white'%3EWS%3C/text%3E%3C/svg%3E">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,632 +22,1514 @@
     :root {
       --bg: #080808;
       --panel: #111111;
-      --white: #f5f5f5;
+      --white: #f4f4f4;
       --muted: #929292;
       --line: rgba(255,255,255,.14);
+      --ease: cubic-bezier(.2,.75,.25,1);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
     body {
       background: var(--bg);
       color: var(--white);
       font-family: Inter, sans-serif;
       overflow-x: hidden;
     }
+
     body::after {
       content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 20;
-      opacity: .09;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.17'/%3E%3C/svg%3E");
+      z-index: 50;
+      opacity: .055;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
     }
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
-    img { display: block; max-width: 100%; }
-    ::selection { background: white; color: black; }
 
-    .topbar {
-      position: absolute;
-      z-index: 30;
-      top: 0; left: 0;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    img {
+      display: block;
       width: 100%;
-      padding: 27px 6%;
+    }
+
+    ::selection {
+      color: #000;
+      background: #fff;
+    }
+
+    .container {
+      width: min(1200px, 90%);
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #bdbdbd;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      height: 1px;
+      width: 26px;
+      background: currentColor;
+    }
+
+    .section-title {
+      font: 800 clamp(44px, 7vw, 88px)/.92 "Barlow Condensed", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+
+    .section-title span {
+      color: #777;
+    }
+
+    .muted {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    /* NAVBAR */
+
+    .navbar {
+      position: absolute;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 25px 0;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+
+    .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,.12);
+      gap: 20px;
     }
-    .brand {
-      font-family: "Barlow Condensed", sans-serif;
-      font-weight: 900;
-      font-size: 31px;
-      letter-spacing: -1.5px;
+
+    .logo {
+      font: 800 30px/.9 "Barlow Condensed", sans-serif;
+      letter-spacing: 2px;
     }
-    .brand span { color: #888; }
-    .brand small {
+
+    .logo small {
       display: block;
-      font-family: Inter, sans-serif;
-      font-size: 8px;
+      margin-top: 6px;
+      font: 500 8px Inter, sans-serif;
       letter-spacing: 3px;
-      font-weight: 600;
       color: #aaa;
-      margin-top: -3px;
     }
-    .nav { display: flex; align-items: center; gap: 32px; }
-    .nav a {
-      color: #ccc;
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: #d0d0d0;
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      transition: color .25s;
+      letter-spacing: 1.3px;
+      transition: color .3s;
     }
-    .nav a:hover { color: white; }
-    .nav .contact-link {
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-contact {
+      border: 1px solid rgba(255,255,255,.55);
       padding: 12px 17px;
-      border: 1px solid #777;
-      color: white;
     }
+
+    /* HERO */
 
     .hero {
       position: relative;
-      min-height: 790px;
+      min-height: 850px;
       height: 100svh;
-      max-height: 1050px;
+      max-height: 1100px;
       display: flex;
       align-items: center;
-      justify-content: center;
       overflow: hidden;
       isolation: isolate;
       background:
-        linear-gradient(90deg, #080808 0%, rgba(8,8,8,.78) 35%, rgba(8,8,8,.45) 70%, #080808 100%),
-        url("https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=2200&q=85") center/cover;
+        radial-gradient(ellipse at 50% 38%, #292929 0%, #101010 38%, #080808 75%);
     }
-    .hero::before {
-      content: "";
+
+    .hero-grid {
       position: absolute;
       inset: 0;
-      z-index: -1;
-      background: linear-gradient(0deg, #080808 0%, transparent 35%, rgba(0,0,0,.2) 100%);
+      z-index: -2;
+      opacity: .14;
+      background-image:
+        linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: linear-gradient(transparent, #000 20%, #000 75%, transparent);
     }
-    .hero-copy {
+
+    .stadium-glow {
       position: absolute;
-      z-index: 5;
-      left: 8%;
-      top: 30%;
-      width: 45%;
-      max-width: 600px;
+      z-index: -1;
+      top: -20%;
+      left: 50%;
+      width: 850px;
+      height: 650px;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse, rgba(255,255,255,.13), transparent 68%);
       pointer-events: none;
-      animation: rise .9s both;
     }
-    .eyebrow {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      color: #bbb;
-      display: flex;
+
+    .hero-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 25px;
+      gap: 15px;
+      padding-top: 90px;
     }
-    .eyebrow::before { content: ""; width: 28px; height: 1px; background: white; }
-    h1, h2, h3 {
-      font-family: "Barlow Condensed", Impact, sans-serif;
+
+    .hero-copy {
+      position: relative;
+      z-index: 5;
+    }
+
+    .hero-copy .eyebrow {
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font: 900 clamp(66px, 9.5vw, 130px)/.78 "Barlow Condensed", sans-serif;
       text-transform: uppercase;
-      font-weight: 900;
+      letter-spacing: -3px;
     }
-    h1 {
-      font-size: clamp(75px, 10.8vw, 160px);
-      line-height: .78;
-      letter-spacing: -5px;
+
+    .hero h1 span {
+      display: block;
     }
-    h1 span { color: transparent; -webkit-text-stroke: 1px white; }
+
+    .hero h1 .outline {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,.85);
+    }
+
     .hero-description {
-      margin-top: 30px;
-      max-width: 300px;
-      color: #c3c3c3;
-      font-size: 12px;
-      line-height: 1.9;
+      max-width: 330px;
+      margin-top: 27px;
+      color: #aaa;
+      font-size: 13px;
+      line-height: 1.8;
     }
-    .hero-actions { display: flex; gap: 12px; margin-top: 28px; pointer-events: auto; }
-    .button {
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 15px;
-      padding: 15px 19px;
-      background: white;
-      color: black;
+      min-height: 49px;
+      padding: 0 20px;
       border: 1px solid white;
+      background: white;
+      color: #080808;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
+      transition: background .3s, color .3s, transform .3s;
+    }
+
+    .btn:hover {
+      background: transparent;
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .text-link {
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 1px;
-      transition: .25s;
-      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #ccc;
     }
-    .button:hover { background: transparent; color: white; }
-    .button.outline { background: transparent; color: white; border-color: #555; }
-    .button.outline:hover { background: white; color: black; }
 
-    .orbit {
+    .text-link span {
+      display: inline-block;
+      margin-left: 8px;
+      transition: transform .3s;
+    }
+
+    .text-link:hover span {
+      transform: translateX(5px);
+    }
+
+    /* 3D PHOTOGRAPHER STAGE */
+
+    .photo-stage {
+      height: 610px;
+      position: relative;
+      perspective: 1100px;
+      transform-style: preserve-3d;
+    }
+
+    .portrait-frame {
       position: absolute;
-      right: 5%;
-      top: 50%;
-      transform: translateY(-46%);
-      width: min(48vw, 650px);
-      height: min(68vh, 650px);
-      min-height: 450px;
-      perspective: 1200px;
+      width: min(72%, 390px);
+      height: 82%;
+      left: 50%;
+      top: 6%;
+      transform: translateX(-50%);
+      transform-style: preserve-3d;
+      transition: transform .15s linear;
       z-index: 3;
     }
-    .orbit-ring {
-      position: absolute;
-      width: 72%;
-      aspect-ratio: 1;
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 50%;
-      top: 12%;
-      left: 13%;
-      transform: rotateX(65deg) rotate(-20deg);
-      box-shadow: 0 0 90px rgba(255,255,255,.025);
-    }
-    .orbit-ring::before, .orbit-ring::after {
+
+    .portrait-frame::before {
       content: "";
       position: absolute;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 50%;
-      inset: 10%;
+      inset: 8% -10% -5%;
+      background: linear-gradient(145deg, rgba(255,255,255,.2), transparent 40%);
+      filter: blur(30px);
+      z-index: -1;
     }
-    .orbit-ring::after { inset: -10%; }
-    .photographer {
+
+    .portrait-frame::after {
+      content: "";
       position: absolute;
-      z-index: 3;
-      left: 26%;
-      top: 16%;
-      width: 49%;
-      height: 68%;
+      inset: 0;
+      border: 1px solid rgba(255,255,255,.35);
+      pointer-events: none;
+    }
+
+    .portrait {
+      height: 100%;
       object-fit: cover;
-      object-position: center;
-      filter: grayscale(1) contrast(1.12);
-      mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
-      transition: transform .2s ease-out;
+      object-position: center 30%;
+      filter: grayscale(100%) contrast(1.08) brightness(.82);
+      transition: filter .7s, transform .7s;
     }
-    .photo-label {
+
+    .photo-stage:hover .portrait {
+      filter: grayscale(100%) contrast(1.13) brightness(.96);
+      transform: scale(1.025);
+    }
+
+    .portrait-shade {
       position: absolute;
-      z-index: 4;
-      left: 28%;
-      bottom: 8%;
-      font-size: 9px;
-      letter-spacing: 3px;
-      color: #ddd;
+      inset: 0;
+      background: linear-gradient(0deg, #080808 0%, transparent 48%, rgba(0,0,0,.15) 100%);
+      pointer-events: none;
     }
-    .player-card {
+
+    .stage-label {
       position: absolute;
       z-index: 5;
-      width: 145px;
-      background: #141414;
-      border: 1px solid rgba(255,255,255,.27);
-      padding: 6px;
-      box-shadow: 0 20px 60px #0009;
-      transition: transform .45s cubic-bezier(.2,.8,.2,1), border-color .3s;
-      animation: float 5s ease-in-out infinite;
-      cursor: pointer;
+      left: 50%;
+      bottom: 5%;
+      transform: translateX(-50%) translateZ(50px);
+      text-align: center;
+      white-space: nowrap;
+      text-shadow: 0 3px 18px #000;
     }
-    .player-card:hover {
-      z-index: 9;
-      border-color: white;
-      transform: translateY(-12px) rotate(0deg) scale(1.09) !important;
-    }
-    .player-card img {
-      width: 100%;
-      height: 155px;
-      object-fit: cover;
-      filter: grayscale(1);
-      transition: filter .3s;
-    }
-    .player-card:hover img { filter: grayscale(0); }
-    .player-card .card-caption { padding: 10px 5px 6px; }
-    .card-caption small {
+
+    .stage-label strong {
       display: block;
-      font-size: 8px;
-      letter-spacing: 2px;
-      color: #999;
-      margin-bottom: 5px;
+      font: 700 36px/.9 "Barlow Condensed", sans-serif;
+      letter-spacing: 8px;
     }
-    .card-caption strong {
-      font-family: "Barlow Condensed", sans-serif;
-      font-size: 20px;
+
+    .stage-label small {
+      display: block;
+      margin-top: 11px;
+      color: #ccc;
+      font-size: 8px;
+      letter-spacing: 4px;
+    }
+
+    .float-card {
+      position: absolute;
+      z-index: 4;
+      padding: 6px;
+      background: rgba(18,18,18,.78);
+      border: 1px solid rgba(255,255,255,.35);
+      backdrop-filter: blur(10px);
+      transform-style: preserve-3d;
+      animation: float 6s ease-in-out infinite;
+      transition: border-color .3s, filter .3s;
+    }
+
+    .float-card:hover {
+      border-color: white;
+      filter: brightness(1.2);
+      z-index: 6;
+    }
+
+    .float-card img {
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+    }
+
+    .float-card .card-caption {
+      padding: 9px 5px 5px;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
     }
-    .card-one { top: 8%; left: 0; transform: rotate(-9deg); }
-    .card-two { top: 24%; right: 0; transform: rotate(8deg); animation-delay: -1.5s; }
-    .card-three { bottom: 3%; left: 4%; transform: rotate(7deg); animation-delay: -3s; }
-    .card-four { bottom: 0; right: 5%; transform: rotate(-7deg); animation-delay: -2s; }
 
-    .hero-index {
+    .card-one {
+      width: 155px;
+      height: 130px;
+      top: 12%;
+      left: 0;
+      transform: rotate(-9deg) translateZ(70px);
+      animation-delay: -1s;
+    }
+
+    .card-two {
+      width: 150px;
+      height: 155px;
+      top: 28%;
+      right: -2%;
+      transform: rotate(8deg) translateZ(100px);
+      animation-delay: -3s;
+    }
+
+    .card-three {
+      width: 165px;
+      height: 130px;
+      bottom: 15%;
+      left: 2%;
+      transform: rotate(6deg) translateZ(40px);
+      animation-delay: -2s;
+    }
+
+    .card-four {
+      width: 130px;
+      height: 145px;
+      bottom: 12%;
+      right: 0;
+      transform: rotate(-7deg) translateZ(90px);
+      animation-delay: -4s;
+    }
+
+    .stage-index {
       position: absolute;
-      bottom: 34px;
-      left: 6%;
-      right: 6%;
-      z-index: 8;
+      right: -15px;
+      top: 5%;
+      writing-mode: vertical-rl;
+      color: #777;
+      font-size: 9px;
+      letter-spacing: 3px;
+    }
+
+    .hero-bottom {
+      position: absolute;
+      bottom: 25px;
+      left: 5%;
+      right: 5%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: #999;
+      color: #777;
       font-size: 9px;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
-    .scroll-mark { display: flex; align-items: center; gap: 12px; }
-    .scroll-mark span { width: 40px; height: 1px; background: #777; }
 
-    .section { padding: 130px 8%; position: relative; }
-    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 48px; }
-    .section-heading h2 { font-size: clamp(55px, 8vw, 105px); line-height: .85; }
-    .section-heading p { color: #999; max-width: 270px; font-size: 12px; line-height: 1.8; }
-    .section-tag { font-size: 9px; letter-spacing: 3px; color: #999; margin-bottom: 18px; }
+    .scroll-indicator {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-    .gallery { background: #0b0b0b; }
-    .gallery-grid {
+    .scroll-indicator::before {
+      content: "";
+      width: 36px;
+      height: 1px;
+      background: #aaa;
+    }
+
+    /* TICKER */
+
+    .ticker {
+      overflow: hidden;
+      border-block: 1px solid var(--line);
+      padding: 20px 0;
+      background: #0d0d0d;
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 28s linear infinite;
+    }
+
+    .ticker-track span {
+      padding: 0 30px;
+      color: #ddd;
+      font: 700 25px "Barlow Condensed", sans-serif;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .ticker-track span:nth-child(even) {
+      color: #656565;
+    }
+
+    /* ABOUT */
+
+    .about {
+      padding: 130px 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 90px;
+      align-items: center;
+    }
+
+    .about-photo-wrap {
+      position: relative;
+      max-width: 430px;
+      margin: auto;
+    }
+
+    .about-photo-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 20px -20px -20px 20px;
+      border: 1px solid rgba(255,255,255,.25);
+    }
+
+    .about-photo {
+      position: relative;
+      height: 530px;
+      object-fit: cover;
+      object-position: center 25%;
+      filter: grayscale(100%);
+    }
+
+    .about-photo-tag {
+      position: absolute;
+      bottom: 20px;
+      left: -25px;
+      padding: 15px 20px;
+      background: #f4f4f4;
+      color: #080808;
+      font: 700 20px "Barlow Condensed", sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .about-content .eyebrow {
+      margin-bottom: 25px;
+    }
+
+    .about-content .section-title {
+      margin-bottom: 27px;
+    }
+
+    .about-content p {
+      max-width: 500px;
+      margin-bottom: 18px;
+    }
+
+    .about-signature {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: #bbb;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* PORTFOLIO */
+
+    .portfolio {
+      padding: 100px 0 130px;
+      background: #0d0d0d;
+    }
+
+    .portfolio-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .portfolio-head .eyebrow {
+      margin-bottom: 20px;
+    }
+
+    .gallery {
       display: grid;
       grid-template-columns: 1.15fr .85fr 1fr;
-      gap: 15px;
+      grid-template-rows: 260px 260px;
+      gap: 14px;
     }
+
     .gallery-item {
       position: relative;
       overflow: hidden;
-      min-height: 320px;
-      background: #151515;
-      cursor: pointer;
+      background: #181818;
+      border: 1px solid #252525;
+      isolation: isolate;
     }
-    .gallery-item:nth-child(2), .gallery-item:nth-child(5) { margin-top: 55px; }
+
+    .gallery-item:first-child {
+      grid-row: span 2;
+    }
+
+    .gallery-item:nth-child(4) {
+      grid-column: span 2;
+    }
+
     .gallery-item img {
-      position: absolute;
-      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: grayscale(1);
-      transition: transform .7s, filter .5s;
+      filter: grayscale(100%);
+      transition: transform .8s var(--ease), filter .7s;
     }
-    .gallery-item:hover img { transform: scale(1.08); filter: grayscale(0); }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+      filter: grayscale(30%);
+    }
+
     .gallery-item::after {
       content: "";
       position: absolute;
       inset: 35% 0 0;
-      background: linear-gradient(transparent, #000d);
+      background: linear-gradient(transparent, rgba(0,0,0,.85));
+      z-index: 1;
     }
-    .gallery-caption { position: absolute; z-index: 2; left: 20px; right: 20px; bottom: 22px; }
-    .gallery-caption small { color: #ccc; font-size: 9px; letter-spacing: 2px; }
-    .gallery-caption h3 { font-size: 30px; margin-top: 5px; }
-    .demo-label {
-      display: inline-block;
-      margin-top: 9px;
-      padding: 5px 7px;
-      background: #ffffffdf;
-      color: #111;
-      font-size: 8px;
+
+    .gallery-info {
+      position: absolute;
+      z-index: 2;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .gallery-info h3 {
+      font: 700 25px "Barlow Condensed", sans-serif;
+      text-transform: uppercase;
       letter-spacing: 1px;
-      font-weight: 700;
     }
+
+    .gallery-info small {
+      display: block;
+      margin-top: 5px;
+      color: #ccc;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .gallery-number {
+      color: #bbb;
+      font-size: 10px;
+    }
+
+    /* MANIFESTO */
 
     .manifesto {
-      min-height: 480px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      position: relative;
       overflow: hidden;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+      padding: 150px 0;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at center, #242424 0%, #080808 70%);
     }
-    .manifesto h2 { font-size: clamp(65px, 12vw, 165px); line-height: .82; letter-spacing: -3px; }
-    .manifesto h2 span { color: transparent; -webkit-text-stroke: 1px #777; }
-    .manifesto p { margin-top: 35px; color: #999; max-width: 390px; line-height: 1.9; font-size: 12px; }
 
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .about-image { position: relative; min-height: 480px; }
-    .about-image img { width: 100%; height: 480px; object-fit: cover; filter: grayscale(1); }
-    .about-image::after {
-      content: "WS / VISÃO EM MOVIMENTO";
-      position: absolute; bottom: -13px; right: -10px;
-      background: white; color: black; padding: 13px 18px;
-      font-size: 9px; font-weight: 700; letter-spacing: 2px;
+    .manifesto .eyebrow {
+      justify-content: center;
+      margin-bottom: 35px;
     }
-    .about-copy h2 { font-size: clamp(50px, 6vw, 80px); line-height: .88; margin-bottom: 25px; }
-    .about-copy p { font-size: 13px; line-height: 2; color: #aaa; margin-bottom: 18px; }
+
+    .manifesto h2 {
+      font: 900 clamp(55px, 10vw, 130px)/.85 "Barlow Condensed", sans-serif;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+    }
+
+    .manifesto h2 span {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,.8);
+    }
+
+    .manifesto p {
+      max-width: 430px;
+      margin: 30px auto 0;
+      padding: 0 15px;
+    }
+
+    .manifesto-mark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      color: rgba(255,255,255,.025);
+      font: 900 380px "Barlow Condensed", sans-serif;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .manifesto .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* CONTACT */
 
     .contact {
-      text-align: center;
-      background: #f2f2f2;
-      color: #080808;
-      padding: 120px 8%;
+      padding: 120px 0;
+      border-top: 1px solid var(--line);
     }
-    .contact .section-tag { color: #666; }
-    .contact h2 { font-size: clamp(70px, 12vw, 155px); line-height: .82; }
-    .contact p { color: #555; font-size: 13px; line-height: 1.9; margin: 28px auto; max-width: 400px; }
-    .contact .button { background: #080808; color: white; border-color: #080808; }
-    .contact .button:hover { background: transparent; color: #080808; }
-    footer {
-      padding: 28px 6%;
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr .7fr;
+      gap: 70px;
+      align-items: end;
+    }
+
+    .contact .eyebrow {
+      margin-bottom: 25px;
+    }
+
+    .contact h2 {
+      font: 900 clamp(60px, 9vw, 115px)/.82 "Barlow Condensed", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+    }
+
+    .contact h2 span {
+      color: #777;
+    }
+
+    .contact-details {
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-row {
       display: flex;
-      justify-content: space-between;
-      gap: 20px;
       align-items: center;
-      font-size: 10px;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+    }
+
+    .contact-row span {
       color: #888;
+      font-size: 10px;
+      text-transform: uppercase;
       letter-spacing: 1px;
     }
-    .footer-brand { color: white; font-family: "Barlow Condensed", sans-serif; font-size: 24px; font-weight: 900; }
 
-    .reveal { opacity: 0; transform: translateY(35px); transition: opacity .8s, transform .8s; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    @keyframes float {
-      0%,100% { translate: 0 0; }
-      50% { translate: 0 -12px; }
+    .contact-row a {
+      transition: opacity .3s;
     }
-    @keyframes rise {
+
+    .contact-row a:hover {
+      opacity: .6;
+    }
+
+    .contact-cta {
+      margin-top: 28px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 25px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: #777;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .footer-brand {
+      color: white;
+      font: 700 22px "Barlow Condensed", sans-serif;
+      letter-spacing: 3px;
+    }
+
+    /* REVEAL */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay {
+      transition-delay: .15s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: .3s;
+    }
+
+    @keyframes float {
+      0%, 100% { margin-top: 0; }
+      50% { margin-top: -15px; }
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes fadeUp {
       from { opacity: 0; transform: translateY(25px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 900px) {
-      .hero { min-height: 950px; height: auto; max-height: none; align-items: start; }
-      .hero-copy { top: 145px; left: 7%; width: 86%; }
-      h1 { font-size: clamp(80px, 16vw, 130px); }
-      .orbit { top: 500px; right: 5%; width: 90%; height: 430px; min-height: 0; transform: none; }
-      .player-card { width: 115px; }
-      .player-card img { height: 110px; }
-      .card-caption strong { font-size: 17px; }
-      .card-one { left: 0; top: 2%; }
-      .card-two { right: 0; top: 15%; }
-      .card-three { left: 0; bottom: 0; }
-      .card-four { right: 0; bottom: 0; }
-      .photographer { height: 75%; top: 10%; }
-      .photo-label { bottom: 2%; }
-      .gallery-grid { grid-template-columns: 1fr 1fr; }
-      .gallery-item { min-height: 290px; }
-      .gallery-item:nth-child(2), .gallery-item:nth-child(5) { margin-top: 0; }
-      .about-grid { gap: 35px; }
-      .about-image, .about-image img { min-height: 380px; height: 380px; }
+    .hero-copy > * {
+      animation: fadeUp .8s both;
     }
-    @media (max-width: 600px) {
-      .topbar { padding: 20px 6%; }
-      .nav { gap: 14px; }
-      .nav a { font-size: 9px; letter-spacing: .5px; }
-      .nav a:nth-child(1), .nav a:nth-child(2) { display: none; }
-      .nav .contact-link { padding: 10px 12px; }
-      .hero { min-height: 850px; }
-      .hero-copy { top: 135px; }
-      h1 { font-size: 23vw; letter-spacing: -3px; }
-      .hero-description { margin-top: 20px; font-size: 11px; max-width: 270px; }
-      .hero-actions { flex-wrap: wrap; margin-top: 20px; }
-      .button { padding: 13px 14px; font-size: 9px; }
-      .orbit { top: 455px; width: 100%; right: 0; height: 350px; }
-      .orbit-ring { top: 10%; left: 15%; width: 70%; }
-      .photographer { left: 28%; width: 44%; height: 72%; }
-      .player-card { width: 93px; padding: 4px; }
-      .player-card img { height: 91px; }
-      .player-card .card-caption { padding: 7px 3px 4px; }
-      .card-caption small { font-size: 6px; letter-spacing: 1px; }
-      .card-caption strong { font-size: 14px; }
-      .card-one { top: 0; left: 1%; }
-      .card-two { top: 8%; right: 1%; }
-      .card-three { bottom: 0; left: 1%; }
-      .card-four { bottom: 0; right: 1%; }
-      .photo-label { left: 29%; font-size: 7px; letter-spacing: 1px; }
-      .hero-index { bottom: 18px; font-size: 7px; letter-spacing: 1px; }
-      .scroll-mark span { width: 15px; }
-      .section { padding: 85px 6%; }
-      .section-heading { align-items: start; flex-direction: column; gap: 20px; margin-bottom: 30px; }
-      .section-heading h2 { font-size: 70px; }
-      .gallery-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .gallery-item { min-height: 220px; }
-      .gallery-caption { left: 10px; right: 8px; bottom: 12px; }
-      .gallery-caption h3 { font-size: 22px; }
-      .gallery-caption small { font-size: 7px; letter-spacing: 1px; }
-      .demo-label { font-size: 6px; padding: 4px; }
-      .manifesto { min-height: 350px; }
-      .manifesto h2 { font-size: 17vw; }
-      .manifesto p { font-size: 11px; }
-      .about-grid { grid-template-columns: 1fr; gap: 45px; }
-      .about-image, .about-image img { min-height: 330px; height: 330px; }
-      .about-copy h2 { font-size: 65px; }
-      .contact { padding: 90px 6%; }
-      .contact h2 { font-size: 20vw; }
-      footer { flex-wrap: wrap; font-size: 8px; padding: 24px 6%; }
+
+    .hero-copy > *:nth-child(2) { animation-delay: .1s; }
+    .hero-copy > *:nth-child(3) { animation-delay: .2s; }
+    .hero-copy > *:nth-child(4) { animation-delay: .3s; }
+    .hero-copy > *:nth-child(5) { animation-delay: .4s; }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 950px) {
+      .hero {
+        min-height: 950px;
+        height: auto;
+        max-height: none;
+        padding: 130px 0 80px;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .hero-copy {
+        text-align: center;
+      }
+
+      .hero-copy .eyebrow,
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-description {
+        margin-inline: auto;
+      }
+
+      .hero h1 {
+        font-size: clamp(70px, 14vw, 120px);
+      }
+
+      .photo-stage {
+        width: min(100%, 620px);
+        margin: 0 auto;
+        height: 580px;
+      }
+
+      .portrait-frame {
+        width: min(66%, 340px);
+      }
+
+      .card-one { left: 4%; }
+      .card-two { right: 3%; }
+      .card-three { left: 5%; }
+      .card-four { right: 3%; }
+
+      .about-grid {
+        gap: 55px;
+      }
+
+      .gallery {
+        grid-template-rows: 220px 220px;
+      }
     }
+
+    @media (max-width: 650px) {
+      .container {
+        width: 90%;
+      }
+
+      .navbar {
+        padding: 20px 0;
+      }
+
+      .nav-links {
+        gap: 13px;
+      }
+
+      .nav-links a {
+        font-size: 9px;
+        letter-spacing: .5px;
+      }
+
+      .nav-links a:nth-child(2) {
+        display: none;
+      }
+
+      .nav-contact {
+        padding: 10px;
+      }
+
+      .logo {
+        font-size: 26px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 135px 0 70px;
+      }
+
+      .hero h1 {
+        font-size: clamp(64px, 17vw, 95px);
+        letter-spacing: -1px;
+      }
+
+      .hero-copy .eyebrow {
+        font-size: 8px;
+        letter-spacing: 2px;
+      }
+
+      .hero-description {
+        font-size: 12px;
+      }
+
+      .photo-stage {
+        height: 480px;
+        margin-top: 5px;
+      }
+
+      .portrait-frame {
+        top: 8%;
+        height: 78%;
+        width: 66%;
+      }
+
+      .card-one {
+        width: 105px;
+        height: 100px;
+        top: 14%;
+        left: -1%;
+      }
+
+      .card-two {
+        width: 100px;
+        height: 118px;
+        top: 30%;
+        right: -2%;
+      }
+
+      .card-three {
+        width: 110px;
+        height: 98px;
+        bottom: 12%;
+        left: 0;
+      }
+
+      .card-four {
+        width: 95px;
+        height: 108px;
+        bottom: 10%;
+        right: -1%;
+      }
+
+      .float-card {
+        padding: 4px;
+      }
+
+      .float-card .card-caption {
+        font-size: 7px;
+        padding: 6px 3px 3px;
+      }
+
+      .stage-label strong {
+        font-size: 27px;
+        letter-spacing: 5px;
+      }
+
+      .stage-label small {
+        font-size: 7px;
+        letter-spacing: 2px;
+      }
+
+      .hero-bottom {
+        bottom: 20px;
+        font-size: 7px;
+        letter-spacing: 1px;
+      }
+
+      .about {
+        padding: 90px 0;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 55px;
+      }
+
+      .about-photo-wrap {
+        width: 85%;
+      }
+
+      .about-photo {
+        height: 420px;
+      }
+
+      .about-content .section-title {
+        font-size: 64px;
+      }
+
+      .portfolio {
+        padding: 85px 0;
+      }
+
+      .portfolio-head {
+        align-items: start;
+        flex-direction: column;
+        margin-bottom: 30px;
+      }
+
+      .portfolio-head .section-title {
+        font-size: 65px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 260px 200px 200px;
+        gap: 9px;
+      }
+
+      .gallery-item:first-child {
+        grid-column: span 2;
+        grid-row: auto;
+      }
+
+      .gallery-item:nth-child(4) {
+        grid-column: span 2;
+      }
+
+      .gallery-info {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+      }
+
+      .gallery-info h3 {
+        font-size: 20px;
+      }
+
+      .gallery-info small {
+        font-size: 7px;
+      }
+
+      .manifesto {
+        padding: 110px 0;
+      }
+
+      .manifesto h2 {
+        font-size: clamp(52px, 14vw, 85px);
+      }
+
+      .manifesto-mark {
+        font-size: 200px;
+      }
+
+      .contact {
+        padding: 90px 0;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .contact h2 {
+        font-size: 75px;
+      }
+
+      .footer-inner {
+        flex-wrap: wrap;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         scroll-behavior: auto !important;
         animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
         transition-duration: .01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
       }
     }
   </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <a class="brand" href="#inicio" aria-label="WS Fotografia, início">
-      WS<span>.</span>
-      <small>FOTOGRAFIA</small>
-    </a>
-    <nav class="nav" aria-label="Navegação principal">
-      <a href="#galeria">Galeria</a>
-      <a href="#sobre">Sobre</a>
-      <a class="contact-link" href="#contato">Contato ↗</a>
-    </nav>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#inicio" class="logo" aria-label="WS Fotografia — início">
+        WS
+        <small>FOTOGRAFIA</small>
+      </a>
+
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#sobre">O fotógrafo</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#contato" class="nav-contact">Contato ↗</a>
+      </nav>
+    </div>
   </header>
 
   <main>
+    <!-- HERO -->
     <section class="hero" id="inicio">
-      <div class="hero-copy">
-        <div class="eyebrow">Fotografia esportiva</div>
-        <h1>O JOGO.<br><span>OUTRO</span><br>OLHAR.</h1>
-        <p class="hero-description">
-          A intensidade de cada lance. A emoção de cada conquista.
-          Histórias que merecem ser vistas de perto.
+      <div class="hero-grid"></div>
+      <div class="stadium-glow"></div>
+
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow">Fotografia esportiva</div>
+
+          <h1>
+            <span>O JOGO.</span>
+            <span class="outline">OUTRO</span>
+            <span>OLHAR.</span>
+          </h1>
+
+          <p class="hero-description">
+            Muito além dos 90 minutos. A intensidade, a emoção e os
+            bastidores do esporte através das lentes da WS Fotografia.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn" href="#portfolio">
+              Explorar portfólio <span>↘</span>
+            </a>
+            <a class="text-link" href="#sobre">
+              Conheça o fotógrafo <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="photo-stage" id="photoStage">
+          <div class="stage-index">WS — SPORTS PHOTOGRAPHY — 001</div>
+
+          <!-- FOTO REAL 1 -->
+          <div class="portrait-frame" id="portraitFrame">
+            <img
+              class="portrait"
+              src="foto-ws-1.jpeg"
+              alt="Fotógrafo WS Fotografia trabalhando à beira do campo"
+              fetchpriority="high"
+            >
+            <div class="portrait-shade"></div>
+          </div>
+
+          <!-- CARTÕES FLUTUANTES PROVISÓRIOS -->
+          <div class="float-card card-one" data-depth="18">
+            <img
+              src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=500&q=85"
+              alt="Estádio de futebol"
+              loading="lazy"
+            >
+            <div class="card-caption">A atmosfera</div>
+          </div>
+
+          <div class="float-card card-two" data-depth="30">
+            <img
+              src="foto-ws-2.jpeg"
+              alt="Fotógrafo no estádio"
+              loading="lazy"
+            >
+            <div class="card-caption">Nos bastidores</div>
+          </div>
+
+          <div class="float-card card-three" data-depth="22">
+            <img
+              src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=500&q=85"
+              alt="Campo de futebol"
+              loading="lazy"
+            >
+            <div class="card-caption">Dentro de campo</div>
+          </div>
+
+          <div class="float-card card-four" data-depth="26">
+            <img
+              src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=500&q=85"
+              alt="Momento esportivo"
+              loading="lazy"
+            >
+            <div class="card-caption">A emoção</div>
+          </div>
+
+          <div class="stage-label">
+            <strong>WS FOTOGRAFIA</strong>
+            <small>O JOGO. OUTRO OLHAR.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-bottom">
+        <span>São Paulo · Brasil</span>
+        <span class="scroll-indicator">Role para descobrir</span>
+        <span>Paixão em cada clique</span>
+      </div>
+    </section>
+
+    <!-- FAIXA ANIMADA -->
+    <div class="ticker" aria-label="Especialidades da WS Fotografia">
+      <div class="ticker-track">
+        <span>Fotografia esportiva ✳</span>
+        <span>Paixão pelo jogo ✳</span>
+        <span>Momentos únicos ✳</span>
+        <span>Além das quatro linhas ✳</span>
+        <span>Fotografia esportiva ✳</span>
+        <span>Paixão pelo jogo ✳</span>
+        <span>Momentos únicos ✳</span>
+        <span>Além das quatro linhas ✳</span>
+      </div>
+    </div>
+
+    <!-- SOBRE -->
+    <section class="about" id="sobre">
+      <div class="container about-grid">
+        <div class="about-photo-wrap reveal">
+          <img
+            src="foto-ws-2.jpeg"
+            alt="Retrato do fotógrafo WS Fotografia em um estádio"
+            class="about-photo"
+            loading="lazy"
+          >
+          <div class="about-photo-tag">Por trás da lente.</div>
+        </div>
+
+        <div class="about-content reveal reveal-delay">
+          <div class="eyebrow">Quem está por trás</div>
+
+          <h2 class="section-title">
+            O OLHAR<br>
+            <span>FAZ A DIFERENÇA.</span>
+          </h2>
+
+          <p class="muted">
+            Fotografar esporte é estar pronto para o instante que não se
+            repete. É antecipar a jogada, perceber a emoção e transformar
+            segundos em imagens que permanecem.
+          </p>
+
+          <p class="muted">
+            A WS Fotografia nasce dessa conexão com o esporte e da busca
+            por registrar cada história com personalidade, intensidade e
+            atenção aos detalhes.
+          </p>
+
+          <div class="about-signature">
+            Precisão · Emoção · Autenticidade
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFÓLIO -->
+    <section class="portfolio" id="portfolio">
+      <div class="container">
+        <div class="portfolio-head reveal">
+          <div>
+            <div class="eyebrow">Uma paixão em imagens</div>
+            <h2 class="section-title">RECORTES<br><span>DO JOGO.</span></h2>
+          </div>
+
+          <p class="muted" style="max-width:320px">
+            Cada fotografia conta uma história. Explore o universo da
+            fotografia esportiva pela perspectiva da WS.
+          </p>
+        </div>
+
+        <!--
+          As imagens externas são provisórias.
+          Substitua-as por fotografias autorais do fotógrafo.
+        -->
+        <div class="gallery">
+          <article class="gallery-item reveal">
+            <img
+              src="foto-ws-1.jpeg"
+              alt="Fotógrafo em ação no estádio"
+              loading="lazy"
+            >
+            <div class="gallery-info">
+              <div>
+                <h3>O profissional</h3>
+                <small>Por trás da câmera</small>
+              </div>
+              <span class="gallery-number">01 / 05</span>
+            </div>
+          </article>
+
+          <article class="gallery-item reveal reveal-delay">
+            <img
+              src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=900&q=85"
+              alt="Vista de estádio de futebol"
+              loading="lazy"
+            >
+            <div class="gallery-info">
+              <div>
+                <h3>O palco</h3>
+                <small>A atmosfera</small>
+              </div>
+              <span class="gallery-number">02 / 05</span>
+            </div>
+          </article>
+
+          <article class="gallery-item reveal reveal-delay-2">
+            <img
+              src="foto-ws-2.jpeg"
+              alt="Fotógrafo no estádio"
+              loading="lazy"
+            >
+            <div class="gallery-info">
+              <div>
+                <h3>Os bastidores</h3>
+                <small>O trabalho</small>
+              </div>
+              <span class="gallery-number">03 / 05</span>
+            </div>
+          </article>
+
+          <article class="gallery-item reveal">
+            <img
+              src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=85"
+              alt="Gramado de futebol"
+              loading="lazy"
+            >
+            <div class="gallery-info">
+              <div>
+                <h3>Além das quatro linhas</h3>
+                <small>O esporte em perspectiva</small>
+              </div>
+              <span class="gallery-number">04 / 05</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="manifesto">
+      <div class="manifesto-mark" aria-hidden="true">WS</div>
+
+      <div class="container reveal">
+        <div class="eyebrow">Nossa maneira de enxergar</div>
+
+        <h2>
+          NÃO É SÓ<br>
+          <span>FOTOGRAFAR.</span>
+        </h2>
+
+        <p class="muted">
+          É sentir a energia do estádio, antecipar o instante e eternizar
+          aquilo que acontece em uma fração de segundo.
         </p>
-        <div class="hero-actions">
-          <a class="button" href="#galeria">Explorar galeria <span>↗</span></a>
-          <a class="button outline" href="#sobre">Conheça a WS</a>
-        </div>
-      </div>
-
-      <div class="orbit" id="orbit" aria-label="Demonstração visual de fotografia esportiva">
-        <div class="orbit-ring"></div>
-        <img class="photographer" id="photographer"
-          src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=700&q=85"
-          alt="Fotógrafo com câmera — imagem ilustrativa">
-        <div class="photo-label">WS / CAPTURANDO MOMENTOS</div>
-
-        <article class="player-card card-one" data-depth="1.8">
-          <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=400&q=80" alt="Cena esportiva ilustrativa">
-          <div class="card-caption"><small>SPORT / 001</small><strong>O lance</strong></div>
-        </article>
-        <article class="player-card card-two" data-depth="2.5">
-          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=400&q=80" alt="Campo de futebol ilustrativo">
-          <div class="card-caption"><small>SPORT / 002</small><strong>A partida</strong></div>
-        </article>
-        <article class="player-card card-three" data-depth="2.2">
-          <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=400&q=80" alt="Jogadores em ação — imagem ilustrativa">
-          <div class="card-caption"><small>SPORT / 003</small><strong>A emoção</strong></div>
-        </article>
-        <article class="player-card card-four" data-depth="1.5">
-          <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=400&q=80" alt="Bola em campo — imagem ilustrativa">
-          <div class="card-caption"><small>SPORT / 004</small><strong>O detalhe</strong></div>
-        </article>
-      </div>
-
-      <div class="hero-index">
-        <span>PORTFÓLIO INDEPENDENTE / 2026</span>
-        <span class="scroll-mark"><span></span> Role para explorar ↓</span>
-        <span>01 — 04</span>
       </div>
     </section>
 
-    <section class="section gallery" id="galeria">
-      <div class="section-heading reveal">
-        <div>
-          <div class="section-tag">01 / GALERIA VISUAL</div>
-          <h2>O ESPORTE<br>EM FOCO.</h2>
-        </div>
-        <p>Cada fotografia guarda uma fração de segundo. Explore cenas esportivas usadas aqui apenas para demonstrar o layout.</p>
-      </div>
-
-      <div class="gallery-grid">
-        <article class="gallery-item reveal">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=900&q=85" alt="Estádio esportivo ilustrativo">
-          <div class="gallery-caption"><small>01 / ATMOSFERA</small><h3>O palco</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
-        </article>
-        <article class="gallery-item reveal">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=900&q=85" alt="Cena de esporte ilustrativa">
-          <div class="gallery-caption"><small>02 / MOVIMENTO</small><h3>A ação</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
-        </article>
-        <article class="gallery-item reveal">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=900&q=85" alt="Detalhe esportivo ilustrativo">
-          <div class="gallery-caption"><small>03 / DETALHE</small><h3>O instante</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
-        </article>
-        <article class="gallery-item reveal">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=85" alt="Campo de futebol ilustrativo">
-          <div class="gallery-caption"><small>04 / CENÁRIO</small><h3>O campo</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
-        </article>
-        <article class="gallery-item reveal">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=900&q=85" alt="Esporte em ação — imagem ilustrativa">
-          <div class="gallery-caption"><small>05 / ENERGIA</small><h3>A disputa</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
-        </article>
-        <article class="gallery-item reveal">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=900&q=85" alt="Fotografia de ação ilustrativa">
-          <div class="gallery-caption"><small>06 / VISÃO</small><h3>Outro olhar</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section manifesto reveal">
-      <div class="section-tag">02 / NOSSA VISÃO</div>
-      <h2>UM INSTANTE.<br><span>ETERNIDADE.</span></h2>
-      <p>O esporte acontece em velocidade máxima. A fotografia faz o tempo parar e permite reviver a emoção de cada segundo.</p>
-    </section>
-
-    <section class="section" id="sobre">
-      <div class="about-grid">
-        <div class="about-image reveal">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=1000&q=85" alt="Fotógrafo com equipamento — imagem ilustrativa">
-        </div>
-        <div class="about-copy reveal">
-          <div class="section-tag">03 / SOBRE A WS</div>
-          <h2>ATRÁS DE<br>CADA LANCE.</h2>
-          <p>A WS Fotografia nasce da paixão por registrar o que torna o esporte inesquecível: concentração, esforço, emoção e superação.</p>
-          <p>Este espaço é uma demonstração visual. Em breve, poderá receber a história real do fotógrafo, sua trajetória, seus eventos e suas imagens autorais.</p>
-          <a class="button outline" href="#contato">Entrar em contato ↗</a>
-        </div>
-      </div>
-    </section>
-
+    <!-- CONTATO -->
     <section class="contact" id="contato">
-      <div class="section-tag">04 / VAMOS CONVERSAR</div>
-      <h2>SUA HISTÓRIA.<br>NOSSO OLHAR.</h2>
-      <p>Quer conversar sobre cobertura esportiva, eventos ou parcerias? Entre em contato com a WS Fotografia.</p>
-      <!-- Substitua o link abaixo pelo WhatsApp real do fotógrafo -->
-      <a class="button" href="mailto:contato@wsfotografia.com.br">Solicitar contato ↗</a>
+      <div class="container contact-grid">
+        <div class="reveal">
+          <div class="eyebrow">Vamos conversar</div>
+
+          <h2>
+            SUA HISTÓRIA.<br>
+            <span>NOSSA LENTE.</span>
+          </h2>
+
+          <p class="muted" style="margin-top:28px;max-width:400px">
+            Tem um projeto, evento esportivo ou parceria em mente?
+            Entre em contato para conversarmos.
+          </p>
+
+          <a class="btn contact-cta" href="#contato-detalhes">
+            Fale com a WS <span>↗</span>
+          </a>
+        </div>
+
+        <div class="contact-details reveal reveal-delay" id="contato-detalhes">
+          <div class="contact-row">
+            <span>Instagram</span>
+            <!-- Troque pelo Instagram real -->
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+              Adicionar perfil ↗
+            </a>
+          </div>
+
+          <div class="contact-row">
+            <span>E-mail</span>
+            <!-- Substitua pelo e-mail real antes de publicar -->
+            <a href="mailto:SEUEMAIL@EXEMPLO.COM">
+              Entrar em contato ↗
+            </a>
+          </div>
+
+          <div class="contact-row">
+            <span>Localização</span>
+            <span>São Paulo, Brasil</span>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer>
-    <a class="footer-brand" href="#inicio">WS.</a>
-    <span>WS FOTOGRAFIA — PORTFÓLIO DEMONSTRATIVO</span>
-    <a href="#inicio">VOLTAR AO TOPO ↑</a>
+    <div class="container footer-inner">
+      <a href="#inicio" class="footer-brand">WS FOTOGRAFIA</a>
+      <span>O jogo. Outro olhar.</span>
+      <span>© <span id="year"></span> WS Fotografia</span>
+    </div>
   </footer>
 
   <script>
-    const orbit = document.getElementById("orbit");
-    const photographer = document.getElementById("photographer");
-    const cards = document.querySelectorAll(".player-card");
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Ano automático no rodapé
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Movimento 3D conforme a posição do mouse.
-    if (orbit && !reduceMotion && window.matchMedia("(hover: hover)").matches) {
-      orbit.addEventListener("pointermove", (event) => {
-        const rect = orbit.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-
-        photographer.style.transform =
-          `translate(${x * -20}px, ${y * -16}px) scale(1.025)`;
-
-        cards.forEach((card) => {
-          const depth = Number(card.dataset.depth || 1);
-          card.style.translate = `${x * depth * -12}px ${y * depth * -12}px`;
-        });
-      });
-
-      orbit.addEventListener("pointerleave", () => {
-        photographer.style.transform = "";
-        cards.forEach((card) => card.style.translate = "");
-      });
-    }
-
-    // Revela as seções durante a rolagem.
+    // Animação de entrada das seções ao rolar
     const revealElements = document.querySelectorAll(".reveal");
 
-    if ("IntersectionObserver" in window && !reduceMotion) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
+    if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.12 });
+      }, {
+        threshold: 0.12
+      });
 
-      revealElements.forEach((element) => observer.observe(element));
+      revealElements.forEach(element => revealObserver.observe(element));
     } else {
-      revealElements.forEach((element) => element.classList.add("visible"));
+      revealElements.forEach(element => element.classList.add("visible"));
     }
+
+    // Efeito 3D com o movimento do mouse
+    const stage = document.getElementById("photoStage");
+    const portrait = document.getElementById("portraitFrame");
+    const floatingCards = document.querySelectorAll(".float-card");
+
+    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (stage && portrait && canHover.matches && !reduceMotion.matches) {
+      stage.addEventListener("pointermove", event => {
+        const rect = stage.getBoundingClientRect();
+
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+        portrait.style.transform =
+          `translateX(calc(-50% + ${x * 16}px)) rotateY(${x * 8}deg) rotateX(${-y * 6}deg)`;
+
+        floatingCards.forEach(card => {
+          const depth = Number(card.dataset.depth || 15);
+
+          card.style.translate =
+            `${x * depth}px ${y * depth}px`;
+        });
+      });
+
+      stage.addEventListener("pointerleave", () => {
+        portrait.style.transform = "translateX(-50%)";
+
+        floatingCards.forEach(card => {
+          card.style.translate = "0 0";
+        });
+      });
+    }
+
+    // Evita animações excessivas quando a pessoa prefere movimento reduzido
+    if (reduceMotion.matches) {
+      document.querySelectorAll(".float-card, .ticker-track").forEach(element => {
+        element.style.animation = "none";
+      });
+    }
+
+    // Aviso visual no console para facilitar a conferência das fotos
+    document.querySelectorAll("img").forEach(img => {
+      img.addEventListener("error", () => {
+        console.warn("Não foi possível carregar esta imagem:", img.src);
+      });
+    });
   </script>
 </body>
 </html>
