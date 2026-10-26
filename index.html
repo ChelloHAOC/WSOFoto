@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+  <meta name="description" content="WS Fotografia — fotografia esportiva, momentos inesquecíveis e histórias dentro de campo.">
+  <title>WS Fotografia | O jogo por outro olhar</title>
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #080808;
+      --panel: #111111;
+      --white: #f5f5f5;
+      --muted: #929292;
+      --line: rgba(255,255,255,.14);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: Inter, sans-serif;
+      overflow-x: hidden;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+      opacity: .09;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.17'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    img { display: block; max-width: 100%; }
+    ::selection { background: white; color: black; }
+
+    .topbar {
+      position: absolute;
+      z-index: 30;
+      top: 0; left: 0;
+      width: 100%;
+      padding: 27px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .brand {
+      font-family: "Barlow Condensed", sans-serif;
+      font-weight: 900;
+      font-size: 31px;
+      letter-spacing: -1.5px;
+    }
+    .brand span { color: #888; }
+    .brand small {
+      display: block;
+      font-family: Inter, sans-serif;
+      font-size: 8px;
+      letter-spacing: 3px;
+      font-weight: 600;
+      color: #aaa;
+      margin-top: -3px;
+    }
+    .nav { display: flex; align-items: center; gap: 32px; }
+    .nav a {
+      color: #ccc;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      transition: color .25s;
+    }
+    .nav a:hover { color: white; }
+    .nav .contact-link {
+      padding: 12px 17px;
+      border: 1px solid #777;
+      color: white;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 790px;
+      height: 100svh;
+      max-height: 1050px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        linear-gradient(90deg, #080808 0%, rgba(8,8,8,.78) 35%, rgba(8,8,8,.45) 70%, #080808 100%),
+        url("https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=2200&q=85") center/cover;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(0deg, #080808 0%, transparent 35%, rgba(0,0,0,.2) 100%);
+    }
+    .hero-copy {
+      position: absolute;
+      z-index: 5;
+      left: 8%;
+      top: 30%;
+      width: 45%;
+      max-width: 600px;
+      pointer-events: none;
+      animation: rise .9s both;
+    }
+    .eyebrow {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #bbb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: white; }
+    h1, h2, h3 {
+      font-family: "Barlow Condensed", Impact, sans-serif;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+    h1 {
+      font-size: clamp(75px, 10.8vw, 160px);
+      line-height: .78;
+      letter-spacing: -5px;
+    }
+    h1 span { color: transparent; -webkit-text-stroke: 1px white; }
+    .hero-description {
+      margin-top: 30px;
+      max-width: 300px;
+      color: #c3c3c3;
+      font-size: 12px;
+      line-height: 1.9;
+    }
+    .hero-actions { display: flex; gap: 12px; margin-top: 28px; pointer-events: auto; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 15px 19px;
+      background: white;
+      color: black;
+      border: 1px solid white;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: .25s;
+      cursor: pointer;
+    }
+    .button:hover { background: transparent; color: white; }
+    .button.outline { background: transparent; color: white; border-color: #555; }
+    .button.outline:hover { background: white; color: black; }
+
+    .orbit {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-46%);
+      width: min(48vw, 650px);
+      height: min(68vh, 650px);
+      min-height: 450px;
+      perspective: 1200px;
+      z-index: 3;
+    }
+    .orbit-ring {
+      position: absolute;
+      width: 72%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 50%;
+      top: 12%;
+      left: 13%;
+      transform: rotateX(65deg) rotate(-20deg);
+      box-shadow: 0 0 90px rgba(255,255,255,.025);
+    }
+    .orbit-ring::before, .orbit-ring::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 50%;
+      inset: 10%;
+    }
+    .orbit-ring::after { inset: -10%; }
+    .photographer {
+      position: absolute;
+      z-index: 3;
+      left: 26%;
+      top: 16%;
+      width: 49%;
+      height: 68%;
+      object-fit: cover;
+      object-position: center;
+      filter: grayscale(1) contrast(1.12);
+      mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+      transition: transform .2s ease-out;
+    }
+    .photo-label {
+      position: absolute;
+      z-index: 4;
+      left: 28%;
+      bottom: 8%;
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #ddd;
+    }
+    .player-card {
+      position: absolute;
+      z-index: 5;
+      width: 145px;
+      background: #141414;
+      border: 1px solid rgba(255,255,255,.27);
+      padding: 6px;
+      box-shadow: 0 20px 60px #0009;
+      transition: transform .45s cubic-bezier(.2,.8,.2,1), border-color .3s;
+      animation: float 5s ease-in-out infinite;
+      cursor: pointer;
+    }
+    .player-card:hover {
+      z-index: 9;
+      border-color: white;
+      transform: translateY(-12px) rotate(0deg) scale(1.09) !important;
+    }
+    .player-card img {
+      width: 100%;
+      height: 155px;
+      object-fit: cover;
+      filter: grayscale(1);
+      transition: filter .3s;
+    }
+    .player-card:hover img { filter: grayscale(0); }
+    .player-card .card-caption { padding: 10px 5px 6px; }
+    .card-caption small {
+      display: block;
+      font-size: 8px;
+      letter-spacing: 2px;
+      color: #999;
+      margin-bottom: 5px;
+    }
+    .card-caption strong {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+    .card-one { top: 8%; left: 0; transform: rotate(-9deg); }
+    .card-two { top: 24%; right: 0; transform: rotate(8deg); animation-delay: -1.5s; }
+    .card-three { bottom: 3%; left: 4%; transform: rotate(7deg); animation-delay: -3s; }
+    .card-four { bottom: 0; right: 5%; transform: rotate(-7deg); animation-delay: -2s; }
+
+    .hero-index {
+      position: absolute;
+      bottom: 34px;
+      left: 6%;
+      right: 6%;
+      z-index: 8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #999;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .scroll-mark { display: flex; align-items: center; gap: 12px; }
+    .scroll-mark span { width: 40px; height: 1px; background: #777; }
+
+    .section { padding: 130px 8%; position: relative; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 48px; }
+    .section-heading h2 { font-size: clamp(55px, 8vw, 105px); line-height: .85; }
+    .section-heading p { color: #999; max-width: 270px; font-size: 12px; line-height: 1.8; }
+    .section-tag { font-size: 9px; letter-spacing: 3px; color: #999; margin-bottom: 18px; }
+
+    .gallery { background: #0b0b0b; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr 1fr;
+      gap: 15px;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+      background: #151515;
+      cursor: pointer;
+    }
+    .gallery-item:nth-child(2), .gallery-item:nth-child(5) { margin-top: 55px; }
+    .gallery-item img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1);
+      transition: transform .7s, filter .5s;
+    }
+    .gallery-item:hover img { transform: scale(1.08); filter: grayscale(0); }
+    .gallery-item::after {
+      content: "";
+      position: absolute;
+      inset: 35% 0 0;
+      background: linear-gradient(transparent, #000d);
+    }
+    .gallery-caption { position: absolute; z-index: 2; left: 20px; right: 20px; bottom: 22px; }
+    .gallery-caption small { color: #ccc; font-size: 9px; letter-spacing: 2px; }
+    .gallery-caption h3 { font-size: 30px; margin-top: 5px; }
+    .demo-label {
+      display: inline-block;
+      margin-top: 9px;
+      padding: 5px 7px;
+      background: #ffffffdf;
+      color: #111;
+      font-size: 8px;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .manifesto {
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .manifesto h2 { font-size: clamp(65px, 12vw, 165px); line-height: .82; letter-spacing: -3px; }
+    .manifesto h2 span { color: transparent; -webkit-text-stroke: 1px #777; }
+    .manifesto p { margin-top: 35px; color: #999; max-width: 390px; line-height: 1.9; font-size: 12px; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-image { position: relative; min-height: 480px; }
+    .about-image img { width: 100%; height: 480px; object-fit: cover; filter: grayscale(1); }
+    .about-image::after {
+      content: "WS / VISÃO EM MOVIMENTO";
+      position: absolute; bottom: -13px; right: -10px;
+      background: white; color: black; padding: 13px 18px;
+      font-size: 9px; font-weight: 700; letter-spacing: 2px;
+    }
+    .about-copy h2 { font-size: clamp(50px, 6vw, 80px); line-height: .88; margin-bottom: 25px; }
+    .about-copy p { font-size: 13px; line-height: 2; color: #aaa; margin-bottom: 18px; }
+
+    .contact {
+      text-align: center;
+      background: #f2f2f2;
+      color: #080808;
+      padding: 120px 8%;
+    }
+    .contact .section-tag { color: #666; }
+    .contact h2 { font-size: clamp(70px, 12vw, 155px); line-height: .82; }
+    .contact p { color: #555; font-size: 13px; line-height: 1.9; margin: 28px auto; max-width: 400px; }
+    .contact .button { background: #080808; color: white; border-color: #080808; }
+    .contact .button:hover { background: transparent; color: #080808; }
+    footer {
+      padding: 28px 6%;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      font-size: 10px;
+      color: #888;
+      letter-spacing: 1px;
+    }
+    .footer-brand { color: white; font-family: "Barlow Condensed", sans-serif; font-size: 24px; font-weight: 900; }
+
+    .reveal { opacity: 0; transform: translateY(35px); transition: opacity .8s, transform .8s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @keyframes float {
+      0%,100% { translate: 0 0; }
+      50% { translate: 0 -12px; }
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .hero { min-height: 950px; height: auto; max-height: none; align-items: start; }
+      .hero-copy { top: 145px; left: 7%; width: 86%; }
+      h1 { font-size: clamp(80px, 16vw, 130px); }
+      .orbit { top: 500px; right: 5%; width: 90%; height: 430px; min-height: 0; transform: none; }
+      .player-card { width: 115px; }
+      .player-card img { height: 110px; }
+      .card-caption strong { font-size: 17px; }
+      .card-one { left: 0; top: 2%; }
+      .card-two { right: 0; top: 15%; }
+      .card-three { left: 0; bottom: 0; }
+      .card-four { right: 0; bottom: 0; }
+      .photographer { height: 75%; top: 10%; }
+      .photo-label { bottom: 2%; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item { min-height: 290px; }
+      .gallery-item:nth-child(2), .gallery-item:nth-child(5) { margin-top: 0; }
+      .about-grid { gap: 35px; }
+      .about-image, .about-image img { min-height: 380px; height: 380px; }
+    }
+    @media (max-width: 600px) {
+      .topbar { padding: 20px 6%; }
+      .nav { gap: 14px; }
+      .nav a { font-size: 9px; letter-spacing: .5px; }
+      .nav a:nth-child(1), .nav a:nth-child(2) { display: none; }
+      .nav .contact-link { padding: 10px 12px; }
+      .hero { min-height: 850px; }
+      .hero-copy { top: 135px; }
+      h1 { font-size: 23vw; letter-spacing: -3px; }
+      .hero-description { margin-top: 20px; font-size: 11px; max-width: 270px; }
+      .hero-actions { flex-wrap: wrap; margin-top: 20px; }
+      .button { padding: 13px 14px; font-size: 9px; }
+      .orbit { top: 455px; width: 100%; right: 0; height: 350px; }
+      .orbit-ring { top: 10%; left: 15%; width: 70%; }
+      .photographer { left: 28%; width: 44%; height: 72%; }
+      .player-card { width: 93px; padding: 4px; }
+      .player-card img { height: 91px; }
+      .player-card .card-caption { padding: 7px 3px 4px; }
+      .card-caption small { font-size: 6px; letter-spacing: 1px; }
+      .card-caption strong { font-size: 14px; }
+      .card-one { top: 0; left: 1%; }
+      .card-two { top: 8%; right: 1%; }
+      .card-three { bottom: 0; left: 1%; }
+      .card-four { bottom: 0; right: 1%; }
+      .photo-label { left: 29%; font-size: 7px; letter-spacing: 1px; }
+      .hero-index { bottom: 18px; font-size: 7px; letter-spacing: 1px; }
+      .scroll-mark span { width: 15px; }
+      .section { padding: 85px 6%; }
+      .section-heading { align-items: start; flex-direction: column; gap: 20px; margin-bottom: 30px; }
+      .section-heading h2 { font-size: 70px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .gallery-item { min-height: 220px; }
+      .gallery-caption { left: 10px; right: 8px; bottom: 12px; }
+      .gallery-caption h3 { font-size: 22px; }
+      .gallery-caption small { font-size: 7px; letter-spacing: 1px; }
+      .demo-label { font-size: 6px; padding: 4px; }
+      .manifesto { min-height: 350px; }
+      .manifesto h2 { font-size: 17vw; }
+      .manifesto p { font-size: 11px; }
+      .about-grid { grid-template-columns: 1fr; gap: 45px; }
+      .about-image, .about-image img { min-height: 330px; height: 330px; }
+      .about-copy h2 { font-size: 65px; }
+      .contact { padding: 90px 6%; }
+      .contact h2 { font-size: 20vw; }
+      footer { flex-wrap: wrap; font-size: 8px; padding: 24px 6%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="WS Fotografia, início">
+      WS<span>.</span>
+      <small>FOTOGRAFIA</small>
+    </a>
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#galeria">Galeria</a>
+      <a href="#sobre">Sobre</a>
+      <a class="contact-link" href="#contato">Contato ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <div class="eyebrow">Fotografia esportiva</div>
+        <h1>O JOGO.<br><span>OUTRO</span><br>OLHAR.</h1>
+        <p class="hero-description">
+          A intensidade de cada lance. A emoção de cada conquista.
+          Histórias que merecem ser vistas de perto.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#galeria">Explorar galeria <span>↗</span></a>
+          <a class="button outline" href="#sobre">Conheça a WS</a>
+        </div>
+      </div>
+
+      <div class="orbit" id="orbit" aria-label="Demonstração visual de fotografia esportiva">
+        <div class="orbit-ring"></div>
+        <img class="photographer" id="photographer"
+          src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=700&q=85"
+          alt="Fotógrafo com câmera — imagem ilustrativa">
+        <div class="photo-label">WS / CAPTURANDO MOMENTOS</div>
+
+        <article class="player-card card-one" data-depth="1.8">
+          <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=400&q=80" alt="Cena esportiva ilustrativa">
+          <div class="card-caption"><small>SPORT / 001</small><strong>O lance</strong></div>
+        </article>
+        <article class="player-card card-two" data-depth="2.5">
+          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=400&q=80" alt="Campo de futebol ilustrativo">
+          <div class="card-caption"><small>SPORT / 002</small><strong>A partida</strong></div>
+        </article>
+        <article class="player-card card-three" data-depth="2.2">
+          <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=400&q=80" alt="Jogadores em ação — imagem ilustrativa">
+          <div class="card-caption"><small>SPORT / 003</small><strong>A emoção</strong></div>
+        </article>
+        <article class="player-card card-four" data-depth="1.5">
+          <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=400&q=80" alt="Bola em campo — imagem ilustrativa">
+          <div class="card-caption"><small>SPORT / 004</small><strong>O detalhe</strong></div>
+        </article>
+      </div>
+
+      <div class="hero-index">
+        <span>PORTFÓLIO INDEPENDENTE / 2026</span>
+        <span class="scroll-mark"><span></span> Role para explorar ↓</span>
+        <span>01 — 04</span>
+      </div>
+    </section>
+
+    <section class="section gallery" id="galeria">
+      <div class="section-heading reveal">
+        <div>
+          <div class="section-tag">01 / GALERIA VISUAL</div>
+          <h2>O ESPORTE<br>EM FOCO.</h2>
+        </div>
+        <p>Cada fotografia guarda uma fração de segundo. Explore cenas esportivas usadas aqui apenas para demonstrar o layout.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <article class="gallery-item reveal">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=900&q=85" alt="Estádio esportivo ilustrativo">
+          <div class="gallery-caption"><small>01 / ATMOSFERA</small><h3>O palco</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
+        </article>
+        <article class="gallery-item reveal">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=900&q=85" alt="Cena de esporte ilustrativa">
+          <div class="gallery-caption"><small>02 / MOVIMENTO</small><h3>A ação</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
+        </article>
+        <article class="gallery-item reveal">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=900&q=85" alt="Detalhe esportivo ilustrativo">
+          <div class="gallery-caption"><small>03 / DETALHE</small><h3>O instante</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
+        </article>
+        <article class="gallery-item reveal">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=85" alt="Campo de futebol ilustrativo">
+          <div class="gallery-caption"><small>04 / CENÁRIO</small><h3>O campo</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
+        </article>
+        <article class="gallery-item reveal">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=900&q=85" alt="Esporte em ação — imagem ilustrativa">
+          <div class="gallery-caption"><small>05 / ENERGIA</small><h3>A disputa</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
+        </article>
+        <article class="gallery-item reveal">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=900&q=85" alt="Fotografia de ação ilustrativa">
+          <div class="gallery-caption"><small>06 / VISÃO</small><h3>Outro olhar</h3><span class="demo-label">FOTO PROVISÓRIA</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section manifesto reveal">
+      <div class="section-tag">02 / NOSSA VISÃO</div>
+      <h2>UM INSTANTE.<br><span>ETERNIDADE.</span></h2>
+      <p>O esporte acontece em velocidade máxima. A fotografia faz o tempo parar e permite reviver a emoção de cada segundo.</p>
+    </section>
+
+    <section class="section" id="sobre">
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=1000&q=85" alt="Fotógrafo com equipamento — imagem ilustrativa">
+        </div>
+        <div class="about-copy reveal">
+          <div class="section-tag">03 / SOBRE A WS</div>
+          <h2>ATRÁS DE<br>CADA LANCE.</h2>
+          <p>A WS Fotografia nasce da paixão por registrar o que torna o esporte inesquecível: concentração, esforço, emoção e superação.</p>
+          <p>Este espaço é uma demonstração visual. Em breve, poderá receber a história real do fotógrafo, sua trajetória, seus eventos e suas imagens autorais.</p>
+          <a class="button outline" href="#contato">Entrar em contato ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contato">
+      <div class="section-tag">04 / VAMOS CONVERSAR</div>
+      <h2>SUA HISTÓRIA.<br>NOSSO OLHAR.</h2>
+      <p>Quer conversar sobre cobertura esportiva, eventos ou parcerias? Entre em contato com a WS Fotografia.</p>
+      <!-- Substitua o link abaixo pelo WhatsApp real do fotógrafo -->
+      <a class="button" href="mailto:contato@wsfotografia.com.br">Solicitar contato ↗</a>
+    </section>
+  </main>
+
+  <footer>
+    <a class="footer-brand" href="#inicio">WS.</a>
+    <span>WS FOTOGRAFIA — PORTFÓLIO DEMONSTRATIVO</span>
+    <a href="#inicio">VOLTAR AO TOPO ↑</a>
+  </footer>
+
+  <script>
+    const orbit = document.getElementById("orbit");
+    const photographer = document.getElementById("photographer");
+    const cards = document.querySelectorAll(".player-card");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Movimento 3D conforme a posição do mouse.
+    if (orbit && !reduceMotion && window.matchMedia("(hover: hover)").matches) {
+      orbit.addEventListener("pointermove", (event) => {
+        const rect = orbit.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+        photographer.style.transform =
+          `translate(${x * -20}px, ${y * -16}px) scale(1.025)`;
+
+        cards.forEach((card) => {
+          const depth = Number(card.dataset.depth || 1);
+          card.style.translate = `${x * depth * -12}px ${y * depth * -12}px`;
+        });
+      });
+
+      orbit.addEventListener("pointerleave", () => {
+        photographer.style.transform = "";
+        cards.forEach((card) => card.style.translate = "");
+      });
+    }
+
+    // Revela as seções durante a rolagem.
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window && !reduceMotion) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealElements.forEach((element) => observer.observe(element));
+    } else {
+      revealElements.forEach((element) => element.classList.add("visible"));
+    }
+  </script>
+</body>
+</html>
